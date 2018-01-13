@@ -1,30 +1,17 @@
-import React, { Component } from 'react'
-import { trelloAuthorize } from './services/trello-service'
+import React from 'react'
+import { connect } from 'react-redux'
+import { routeNodeSelector } from 'redux-router5'
+import routes from './routes'
 
-class App extends Component {
-  componentDidMount() {
-    const authorized = window.Trello.authorized()
-    console.log(authorized)
-    trelloAuthorize()
-      .then(() => {
-        const authorized = window.Trello.authorized()
-        console.log(authorized)
+const App = ({ route }) => {
+  const name = route ? route.name : null
+  const routeToRender = name ? routes.find(r => r.name === name) : null
 
-        window.Trello.get(
-          'members/me/boards',
-          { filter: 'open', fields: 'id,name' },
-          function(err, boards) {
-            console.log(boards) // got them!
-            console.log(err) // if something went wrong, this will be non-null
-          }
-        )
-      })
-      .catch(() => console.log('error'))
+  if (routeToRender) {
+    return React.createElement(routeToRender.component)
   }
 
-  render() {
-    return <p>Hello</p>
-  }
+  return <p>Not found.</p>
 }
 
-export default App
+export default connect(state => routeNodeSelector(''))(App)
