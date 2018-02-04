@@ -1,30 +1,62 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import { trelloAuthorize } from '../services/trello-service'
+import { connect } from 'react-redux'
+import { getBoards } from '../redux/boards'
+import toJS from '../to-js'
 
 class Home extends Component {
   componentDidMount() {
-    const authorized = window.Trello.authorized()
-    console.log(authorized)
-    trelloAuthorize()
-      .then(() => {
-        const authorized = window.Trello.authorized()
-        console.log(authorized)
-
-        window.Trello.get(
-          'members/me/boards',
-          { filter: 'open', fields: 'id,name' },
-          function(err, boards) {
-            console.log(boards) // got them!
-            console.log(err) // if something went wrong, this will be non-null
-          }
-        )
-      })
-      .catch(() => console.log('error'))
+    this.props.getBoards()
+    // const authorized = window.Trello.authorized()
+    // console.log(authorized)
+    // trelloAuthorize()
+    //   .then(() => {
+    //     const authorized = window.Trello.authorized()
+    //     console.log(authorized)
+    //
+    //     window.Trello.get(
+    //       'members/me/boards',
+    //       { filter: 'open', fields: 'id,name' },
+    //       function(err, boards) {
+    //         console.log(boards) // got them!
+    //         console.log(err) // if something went wrong, this will be non-null
+    //       }
+    //     )
+    //   })
+    //   .catch(() => console.log('error'))
   }
 
   render() {
-    return <p>Hello</p>
+    if (this.props.isLoading) {
+      return <p>Loading...</p>
+    }
+
+    if (this.props.error) {
+      return <p>Error</p>
+    }
+
+    if (!this.props.boards) {
+      return <div />
+    }
+
+    return <h2>Boards</h2>
   }
 }
 
-export default Home
+Home.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  boards: PropTypes.array,
+  error: PropTypes.object,
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getBoards,
+    },
+    dispatch
+  )
+
+export default connect(mapDispatchToProps, mapStateToProps)(toJS(Home))

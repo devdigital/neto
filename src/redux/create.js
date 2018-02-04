@@ -1,18 +1,13 @@
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux'
-import { router5Middleware, router5Reducer } from 'redux-router5'
+import { router5Middleware } from 'redux-router5'
+import reducers from './reducers'
 
 export default function configureStore(router, initialState = {}) {
   const createStoreWithMiddleware = applyMiddleware(router5Middleware(router))(
     createStore
   )
 
-  const store = createStoreWithMiddleware(
-    combineReducers({
-      router: router5Reducer,
-      /* your reducers */
-    }),
-    initialState
-  )
+  const store = createStoreWithMiddleware(reducers, initialState)
 
   return store
 }
