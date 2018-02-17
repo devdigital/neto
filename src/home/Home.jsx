@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { trelloAuthorize } from '../services/trello-service'
 import { connect } from 'react-redux'
-import { getBoards } from '../redux/boards'
+import { getBoards } from '../redux/modules/boards'
 import toJS from '../to-js'
 
 class Home extends Component {
@@ -51,6 +51,12 @@ Home.propTypes = {
   error: PropTypes.object,
 }
 
+const mapStateToProps = state => console.log(state) || ({
+  isLoading: state.get('boards').get('isLoading'),
+  boards: state.get('boards').get('boards'),
+  error: state.get('boards').get('error')
+})
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -59,4 +65,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapDispatchToProps, mapStateToProps)(toJS(Home))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(Home))

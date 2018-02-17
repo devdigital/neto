@@ -1,14 +1,10 @@
 class ApiService {
   get(uri, filter, fields) {
     return new Promise((resolve, reject) => {
-      window.Trello.get(uri, { filter, fields }, function(err, data) {
-        if (err) {
-          reject(err)
-          return
-        }
-
-        resolve(data)
-      })
+      window.Trello.get(uri, { filter, fields }, data => resolve(data), error => reject({
+          statusCode: error.status, 
+          message: error.responseText
+        })) 
     })
   }
 }
