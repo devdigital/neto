@@ -1,33 +1,33 @@
 import { handleActions } from 'redux-actions'
 import { handle } from 'redux-pack'
 import { fromJS } from 'immutable'
-import boardsService from '../../services/boards-service'
+import apiService from '../../services/api-service'
 
-export const GET_BOARDS = 'neto/boards/GET'
+export const SIGN_IN = 'neto/user/SIGN_IN'
 
 const initialState = fromJS({
   isLoading: false,
-  boards: null,
+  user: null,
   error: null,
 })
 
 const reducer = handleActions(
   {
-    [GET_BOARDS]: (state, action) =>
+    [SIGN_IN]: (state, action) =>
       handle(state, action, {
         start: state =>
           state
             .set('isLoading', true)
-            .set('boards', initialState.get('boards'))
+            .set('user', initialState.get('user'))
             .set('error', initialState.get('error')),
         finish: state => state.set('isLoading', false),
         success: state =>
           state
-            .set('boards', fromJS(action.payload))
+            .set('user', fromJS(action.payload))
             .set('error', initialState.get('error')),
         failure: state =>
           state
-            .set('boards', initialState.get('boards'))
+            .set('user', initialState.get('user'))
             .set('error', fromJS(action.payload)),
       }),
   },
@@ -36,7 +36,7 @@ const reducer = handleActions(
 
 export default reducer
 
-export const getBoards = () => ({
-  type: GET_BOARDS,
-  promise: boardsService.getBoards(),
+export const signIn = () => ({
+  type: SIGN_IN,
+  promise: apiService.signIn(),
 })

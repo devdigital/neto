@@ -7,12 +7,13 @@ import routes from './routes'
 export default function configureRouter(useListenersPlugin = false) {
   const router = createRouter(routes, {
     defaultRoute: '/',
+    strictQueryParams: false,
   })
     // Plugins
     .usePlugin(loggerPlugin)
     .usePlugin(
       browserPlugin({
-        useHash: true,
+        useHash: false,
       })
     )
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
-import { trelloAuthorize } from '../services/trello-service'
 import { connect } from 'react-redux'
 import { getBoards } from '../redux/modules/boards'
 import toJS from '../to-js'
@@ -9,23 +8,6 @@ import toJS from '../to-js'
 class Home extends Component {
   componentDidMount() {
     this.props.getBoards()
-    // const authorized = window.Trello.authorized()
-    // console.log(authorized)
-    // trelloAuthorize()
-    //   .then(() => {
-    //     const authorized = window.Trello.authorized()
-    //     console.log(authorized)
-    //
-    //     window.Trello.get(
-    //       'members/me/boards',
-    //       { filter: 'open', fields: 'id,name' },
-    //       function(err, boards) {
-    //         console.log(boards) // got them!
-    //         console.log(err) // if something went wrong, this will be non-null
-    //       }
-    //     )
-    //   })
-    //   .catch(() => console.log('error'))
   }
 
   render() {
@@ -51,10 +33,10 @@ Home.propTypes = {
   error: PropTypes.object,
 }
 
-const mapStateToProps = state => console.log(state) || ({
+const mapStateToProps = state => ({
   isLoading: state.get('boards').get('isLoading'),
   boards: state.get('boards').get('boards'),
-  error: state.get('boards').get('error')
+  error: state.get('boards').get('error'),
 })
 
 const mapDispatchToProps = dispatch =>

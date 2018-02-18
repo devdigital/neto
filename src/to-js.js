@@ -21,4 +21,3 @@ const toJS = WrappedComponent => wrappedComponentProps => {
 }
 
 export default toJS
-

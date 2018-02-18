@@ -13,7 +13,8 @@ const developmentMiddlewares = []
 if (isDevelopment) {
   developmentMiddlewares.push(
     createLogger({
-      stateTransformer: state => Iterable.isIterable(state) ? state.toJS() : state
+      stateTransformer: state =>
+        Iterable.isIterable(state) ? state.toJS() : state,
     })
   )
 }
@@ -29,7 +30,7 @@ export default function configureStore(router, initialState = new Map()) {
         thunkMiddleware,
         ...developmentMiddlewares
       )
-    ),
+    )
   )
 
   if (module.hot) {
