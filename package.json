@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html --public-url ./"
+    "build:prod": "parcel build ./src/index.html --public-url ./",
+    "build": "yarn build:prod && yarn redirects",
+    "redirects": "cp _redirects ./dist"
   },
   "prettier": {
     "singleQuote": true,
