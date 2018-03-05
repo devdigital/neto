@@ -52,11 +52,7 @@ export const createAuthenticationMiddleware = (addRoute, redirect) => {
     }
 
     if (!isAuthenticated()) {
-      signIn({
-        key: 'd97ebb62dc6a94fda5b7625489fe22a6',
-        redirectUri: 'http://localhost:1234/signed-in', // 'http://neto.netlify.com/signed-in',
-        expiration: '30days',
-      })
+      signIn()
       return
     }
 

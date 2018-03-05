@@ -1,8 +1,11 @@
-import apiService from './api-service'
+import { get } from './trello-service'
 
 class BoardsService {
   getBoards() {
-    return apiService.get('members/me/boards', 'open', 'id,name')
+    return get('members/me/boards', {
+      fields: 'id,name',
+      filter: 'open',
+    })
   }
 }
 

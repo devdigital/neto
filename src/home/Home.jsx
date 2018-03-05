@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 import { getBoards } from '../redux/modules/boards'
 import toJS from '../to-js'
 
+const Board = ({ name }) => <p>{name}</p>
+
+const Boards = ({ boards }) => boards.map(b => <Board name={b.name} />)
+
 class Home extends Component {
   componentDidMount() {
     this.props.getBoards()
@@ -23,7 +27,12 @@ class Home extends Component {
       return <div />
     }
 
-    return <h2>Boards</h2>
+    return (
+      <div>
+        <h2>Boards</h2>
+        <Boards boards={this.props.boards} />
+      </div>
+    )
   }
 }
 
