@@ -23,7 +23,9 @@
     "parcel-bundler": "^1.6.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
+    "local-storage": "^1.4.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
@@ -36,6 +38,7 @@
     "redux-pack": "^0.1.5",
     "redux-router5": "^5.2.1",
     "redux-thunk": "^2.2.0",
-    "router5": "^5.8.2"
+    "router5": "^5.8.2",
+    "url-parse": "^1.2.0"
   }
 }

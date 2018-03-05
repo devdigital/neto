@@ -5,7 +5,7 @@ import browserPlugin from 'router5/plugins/browser'
 import routes from './routes'
 
 export default function configureRouter(useListenersPlugin = false) {
-  const router = createRouter(routes, {
+  const router = createRouter(routes.getAll(), {
     defaultRoute: '/',
     strictQueryParams: false,
   })
