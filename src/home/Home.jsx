@@ -5,11 +5,20 @@ import { connect } from 'react-redux'
 import { getBoards } from '../redux/modules/boards'
 import toJS from '../to-js'
 
-const Board = ({ name }) => <p>{name}</p>
+const Board = ({ name, onClick }) => (
+  <p>
+    <a onClick={() => onClick()}>{name}</a>
+  </p>
+)
 
-const Boards = ({ boards }) => boards.map(b => <Board name={b.name} />)
+const Boards = ({ boards, onBoardClick }) =>
+  boards.map(b => (
+    <Board key={b.id} name={b.name} onClick={() => onBoardClick(b.id)} />
+  ))
 
 class Home extends Component {
+  onBoardSelected = id => console.log(id)
+
   componentDidMount() {
     this.props.getBoards()
   }
@@ -30,7 +39,10 @@ class Home extends Component {
     return (
       <div>
         <h2>Boards</h2>
-        <Boards boards={this.props.boards} />
+        <Boards
+          boards={this.props.boards}
+          onBoardClick={this.onBoardSelected}
+        />
       </div>
     )
   }

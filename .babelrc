@@ -1,11 +1,4 @@
 {
-    "presets": ["env", "react"],
-    "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": ["src"]
-        }
-      ]
-    ]
+  "presets": ["env", "react"],
+  "plugins": ["transform-class-properties"]
 }
