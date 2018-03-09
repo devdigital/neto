@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getBoards } from '../redux/modules/boards'
 import toJS from '../to-js'
+import { actions } from 'redux-router5'
 
 const Board = ({ name, onClick }) => (
   <p>
@@ -17,7 +18,7 @@ const Boards = ({ boards, onBoardClick }) =>
   ))
 
 class Home extends Component {
-  onBoardSelected = id => console.log(id)
+  onBoardSelected = id => this.props.navigateTo('board', { boardId: id })
 
   componentDidMount() {
     this.props.getBoards()
@@ -64,6 +65,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getBoards,
+      navigateTo: actions.navigateTo,
     },
     dispatch
   )

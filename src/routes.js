@@ -1,11 +1,17 @@
 import React from 'react'
 import Home from './home/Home'
+import Board from './board/Board'
 
 const routes = [
   {
     name: 'home',
     path: '/',
     component: Home,
+  },
+  {
+    name: 'board',
+    path: '/boards/:boardId',
+    component: Board,
   },
 ]
 

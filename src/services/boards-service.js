@@ -7,6 +7,14 @@ class BoardsService {
       filter: 'open',
     })
   }
+  s
+  getBoard(boardId) {
+    return get(`boards/${boardId}`, {
+      fields: 'id,name',
+      lists: 'open',
+      ['list_fields']: 'id,name,closed,pos',
+    })
+  }
 }
 
 export default new BoardsService()
