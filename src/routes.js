@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from './home/Home'
 import Board from './board/Board'
+import List from './list/List'
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     name: 'board',
     path: '/boards/:boardId',
     component: Board,
+  },
+  {
+    name: 'list',
+    path: '/lists/:listId',
+    component: List,
   },
 ]
 

@@ -18,7 +18,7 @@ List.propTypes = {
 }
 
 class Board extends Component {
-  onListSelected = id => console.log(id) // this.props.navigateTo('board', { boardId: id })
+  onListSelected = id => this.props.navigateTo('list', { listId: id })
 
   componentDidMount() {
     this.props.getBoard(this.props.route.params.boardId)
@@ -36,7 +36,7 @@ class Board extends Component {
     if (!this.props.board) {
       return <div />
     }
-    debugger
+
     return (
       <div>
         <h2>{this.props.board.name}</h2>

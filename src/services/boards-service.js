@@ -7,12 +7,20 @@ class BoardsService {
       filter: 'open',
     })
   }
-  s
+
   getBoard(boardId) {
     return get(`boards/${boardId}`, {
       fields: 'id,name',
       lists: 'open',
       ['list_fields']: 'id,name,closed,pos',
+    })
+  }
+
+  getList(listId) {
+    return get(`lists/${listId}`, {
+      fields: 'id,name',
+      cards: 'open',
+      ['card_fields']: 'id,name,closed,pos',
     })
   }
 }
