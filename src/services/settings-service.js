@@ -1,14 +1,8 @@
-let settings = null
-
-if (process.env.REMOTE_ENV) {
-  settings = require('../settings.prod.js')
-} else {
-  settings = require('../settings.dev.js')
-}
+const isProduction = process.env.NODE_ENV === 'production'
 
 class SettingsService {
   getUri() {
-    return settings.uri
+    return isProduction ? 'http://neto.netlify.com' : 'http://localhost:1234'
   }
 }
 
