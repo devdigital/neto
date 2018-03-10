@@ -10,7 +10,7 @@ const App = ({ route }) => {
     return React.createElement(routeToRender.component)
   }
 
-  return <p>Not found.</p>
+  return <div />
 }
 
 export default connect(state => routeNodeSelector(''))(App)

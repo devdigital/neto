@@ -5,17 +5,7 @@ import { connect } from 'react-redux'
 import { getBoard } from '../redux/modules/board'
 import toJS from '../to-js'
 import { actions } from 'redux-router5'
-
-const List = ({ name, onClick }) => (
-  <p>
-    <a onClick={() => onClick()}>{name}</a>
-  </p>
-)
-
-List.propTypes = {
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
+import List from '../shared/List'
 
 class Board extends Component {
   onListSelected = id => this.props.navigateTo('list', { listId: id })
@@ -40,14 +30,10 @@ class Board extends Component {
     return (
       <div>
         <h2>{this.props.board.name}</h2>
-        <h3>Lists</h3>
-        {this.props.board.lists.map(l => (
-          <List
-            key={l.id}
-            name={l.name}
-            onClick={() => this.onListSelected(l.id)}
-          />
-        ))}
+        <List
+          items={this.props.board.lists.map(l => ({ id: l.id, name: l.name }))}
+          onClick={id => this.onListSelected(id)}
+        />
       </div>
     )
   }

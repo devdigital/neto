@@ -7,8 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build:prod":
-      "cross-env NODE_ENV=production REMOTE_ENV=true parcel build ./src/index.html --public-url ./",
+    "build:prod": "cross-env NODE_ENV=production REMOTE_ENV=true parcel build ./src/index.html --public-url ./",
     "build": "yarn build:prod && yarn redirects",
     "redirects": "cp _redirects ./dist"
   },
@@ -29,6 +28,7 @@
     "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
     "local-storage": "^1.4.2",
+    "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
