@@ -1,6 +1,7 @@
 import ls from 'local-storage'
 import Url from 'url-parse'
 import axios from 'axios'
+import settingsService from './settings-service'
 
 export const isAuthenticated = () => {
   const token = ls.get('trello-token')
@@ -10,7 +11,7 @@ export const isAuthenticated = () => {
 const key = 'd97ebb62dc6a94fda5b7625489fe22a6'
 
 export const signIn = options => {
-  const redirectUri = 'http://localhost:1234/signed-in' // 'http://neto.netlify.com/signed-in',
+  const redirectUri = `${settingsService.getUri()}/signed-in`
   const expiration = '30days'
 
   const uri = `https://trello.com/1/authorize?response_type=token&key=${key}&redirect_uri=${redirectUri}&callback_method=fragment&scope=read&expiration=${expiration}&name=neto`
