@@ -1,8 +1,27 @@
-import apiService from './api-service'
+import { get } from './trello-service'
 
 class BoardsService {
   getBoards() {
-    return apiService.get('members/me/boards', 'open', 'id,name')
+    return get('members/me/boards', {
+      fields: 'id,name',
+      filter: 'open',
+    })
+  }
+
+  getBoard(boardId) {
+    return get(`boards/${boardId}`, {
+      fields: 'id,name',
+      lists: 'open',
+      ['list_fields']: 'id,name,closed,pos',
+    })
+  }
+
+  getList(listId) {
+    return get(`lists/${listId}`, {
+      fields: 'id,name',
+      cards: 'open',
+      ['card_fields']: 'id,name,closed,pos',
+    })
   }
 }
 

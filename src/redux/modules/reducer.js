@@ -1,10 +1,12 @@
 import { router5Reducer } from 'redux-router5'
 import { combineReducers } from 'redux-immutable'
 import boards from './boards'
-import user from './user'
+import board from './board'
+import list from './list'
 
 export default combineReducers({
   router: router5Reducer,
   boards,
-  user,
+  board,
+  list,
 })

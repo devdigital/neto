@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getBoards } from '../redux/modules/boards'
+import { getBoard } from '../redux/modules/board'
 import toJS from '../to-js'
 import { actions } from 'redux-router5'
 import List from '../shared/List'
 
-class Home extends Component {
-  onBoardSelected = id => this.props.navigateTo('board', { boardId: id })
+class Board extends Component {
+  onListSelected = id => this.props.navigateTo('list', { listId: id })
 
   componentDidMount() {
-    this.props.getBoards()
+    this.props.getBoard(this.props.route.params.boardId)
   }
 
   render() {
@@ -23,41 +23,43 @@ class Home extends Component {
       return <p>Error</p>
     }
 
-    if (!this.props.boards) {
+    if (!this.props.board) {
       return <div />
     }
 
     return (
       <div>
-        <h2>Boards</h2>
+        <h2>{this.props.board.name}</h2>
         <List
-          items={this.props.boards.map(b => ({ id: b.id, name: b.name }))}
-          onClick={id => this.onBoardSelected(id)}
+          items={this.props.board.lists.map(l => ({ id: l.id, name: l.name }))}
+          onClick={id => this.onListSelected(id)}
         />
       </div>
     )
   }
 }
 
-Home.propTypes = {
+Board.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  boards: PropTypes.array,
+  board: PropTypes.object,
   error: PropTypes.object,
+  route: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.get('boards').get('isLoading'),
-  boards: state.get('boards').get('boards'),
-  error: state.get('boards').get('error'),
+  isLoading: state.get('board').get('isLoading'),
+  board: state.get('board').get('board'),
+  error: state.get('board').get('error'),
+  route: state.get('router').route,
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getBoards,
+      getBoard,
       navigateTo: actions.navigateTo,
     },
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(Home))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(Board))
