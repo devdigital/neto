@@ -7,11 +7,13 @@ import { Provider } from 'react-redux'
 import createRouter from './create-router'
 import configureStore from './redux/create'
 import App from './App'
+import setGlobalStyles from './styles'
 
 const router = createRouter()
 const store = configureStore(router)
 
 router.start(() => {
+  setGlobalStyles()
   ReactDOM.render(
     <Provider store={store}>
       <RouterProvider router={router}>

@@ -5,8 +5,14 @@ import { connect } from 'react-redux'
 import { getList } from '../redux/modules/list'
 import toJS from '../to-js'
 import { actions } from 'redux-router5'
+import Checkbox from 'material-ui/Checkbox'
+import g from 'glamorous'
 
-const Card = ({ name }) => <p>{name}</p>
+const Card = ({ name }) => (
+  <g.Div marginBottom="0.8rem">
+    <Checkbox label={name} />
+  </g.Div>
+)
 
 Card.propTypes = {
   name: PropTypes.string.isRequired,
