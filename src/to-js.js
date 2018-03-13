@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Iterable } from 'immutable'
 
-const toJS = WrappedComponent => wrappedComponentProps => {
-  const KEY = 0
-  const VALUE = 1
+const toJS = WrappedComponent => {
+  return class ImmutableWrapper extends Component {
+    constructor(props) {
+      super(props)
 
-  const propsJS = Object.entries(wrappedComponentProps).reduce(
-    (newProps, wrappedComponentProp) => {
-      newProps[wrappedComponentProp[KEY]] = Iterable.isIterable(
-        wrappedComponentProp[VALUE]
-      )
-        ? wrappedComponentProp[VALUE].toJS()
-        : wrappedComponentProp[VALUE]
-      return newProps
-    },
-    {}
-  )
+      this.updateNewProps = this.updateNewProps.bind(this)
+      this.newProps = this.updateNewProps(this.props)
+    }
 
-  return <WrappedComponent {...propsJS} />
+    updateNewProps(currentProps) {
+      const entries = x =>
+        Object.keys(x).reduce((y, z) => y.push([z, x[z]]) && y, [])
+      const objectEntries = entries(currentProps)
+      return objectEntries.reduce((newProps, entry) => {
+        newProps[entry[0]] = Iterable.isIterable(entry[1])
+          ? entry[1].toJS()
+          : entry[1] // eslint-disable-line
+        return newProps
+      }, {})
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this.newProps = this.updateNewProps(nextProps)
+    }
+
+    render() {
+      return <WrappedComponent {...this.newProps} />
+    }
+  }
 }
 
 export default toJS
