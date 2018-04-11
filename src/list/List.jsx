@@ -8,14 +8,49 @@ import { actions } from 'redux-router5'
 import Checkbox from 'material-ui/Checkbox'
 import g from 'glamorous'
 
-const Card = ({ name }) => (
-  <g.Div marginBottom="0.8rem">
-    <Checkbox label={name} />
-  </g.Div>
-)
+const Member = ({ name, avatar }) => {
+  const member = avatar ? (
+    <g.Img
+      borderRadius="50%"
+      src={`https://trello-avatars.s3.amazonaws.com/${avatar}/30.png`}
+    />
+  ) : (
+    <em>{name}</em>
+  )
+  return <g.Div>{member}</g.Div>
+}
+
+Member.propTypes = {
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+}
+
+const Card = ({ name, members }) => {
+  const Grid = g.div({
+    display: 'grid',
+    justifyItems: 'end',
+    alignItems: 'center',
+    gridTemplateColumns: '1fr 1fr',
+    gridGap: '1rem',
+  })
+
+  return (
+    <g.Div marginBottom="0.8rem">
+      <Checkbox label={name} />
+      <Grid>
+        {members.map((m, i) => (
+          <g.Div gridColumnStart={i + 2} gridColumnEnd={i + 3}>
+            <Member name={m.fullName} avatar={m.avatarHash} />
+          </g.Div>
+        ))}
+      </Grid>
+    </g.Div>
+  )
+}
 
 Card.propTypes = {
   name: PropTypes.string.isRequired,
+  members: PropTypes.array.isRequired,
 }
 
 class List extends Component {
@@ -39,7 +74,9 @@ class List extends Component {
     return (
       <div>
         <h2>{this.props.list.name}</h2>
-        {this.props.list.cards.map(c => <Card key={c.id} name={c.name} />)}
+        {this.props.list.cards.map(c => (
+          <Card key={c.id} name={c.name} members={c.members} />
+        ))}
       </div>
     )
   }

@@ -17,11 +17,17 @@ class BoardsService {
   }
 
   getList(listId) {
-    return get(`lists/${listId}`, {
-      fields: 'id,name',
-      cards: 'open',
-      ['card_fields']: 'id,name,closed,pos',
+    const list = get(`lists/${listId}`, { fields: 'id,name' })
+    const cards = get(`lists/${listId}/cards`, {
+      fields: 'id,name,closed,pos',
+      members: true,
+      ['member_fields']: 'username,fullName,avatarHash',
     })
+
+    return Promise.all([list, cards]).then(values => ({
+      ...values[0],
+      cards: values[1],
+    }))
   }
 }
 

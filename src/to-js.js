@@ -13,7 +13,9 @@ const toJS = WrappedComponent => {
     updateNewProps(currentProps) {
       const entries = x =>
         Object.keys(x).reduce((y, z) => y.push([z, x[z]]) && y, [])
+
       const objectEntries = entries(currentProps)
+
       return objectEntries.reduce((newProps, entry) => {
         newProps[entry[0]] = Iterable.isIterable(entry[1])
           ? entry[1].toJS()
