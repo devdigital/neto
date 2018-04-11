@@ -28,23 +28,29 @@ Member.propTypes = {
 const Card = ({ name, members }) => {
   const Grid = g.div({
     display: 'grid',
-    justifyItems: 'end',
     alignItems: 'center',
-    gridTemplateColumns: '1fr 1fr',
-    gridGap: '1rem',
+    gridTemplateColumns: '3fr 1fr',
+    marginBottom: '0.8rem',
   })
 
   return (
-    <g.Div marginBottom="0.8rem">
-      <Checkbox label={name} />
-      <Grid>
+    <Grid>
+      <g.Div gridColumn="1 / 2">
+        <Checkbox label={name} />
+      </g.Div>
+      <g.Div
+        display="flex"
+        alignItems="center"
+        justifySelf="end"
+        gridColumn="2 / 2"
+      >
         {members.map((m, i) => (
-          <g.Div gridColumnStart={i + 2} gridColumnEnd={i + 3}>
+          <g.Div key={`member-${i}`} marginLeft="0.5rem">
             <Member name={m.fullName} avatar={m.avatarHash} />
           </g.Div>
         ))}
-      </Grid>
-    </g.Div>
+      </g.Div>
+    </Grid>
   )
 }
 
