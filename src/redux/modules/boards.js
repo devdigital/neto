@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 import { handle } from 'redux-pack'
 import { fromJS } from 'immutable'
-import boardsService from '../../services/boards-service'
+import boardsService from '~/services/boards-service'
 
 export const GET_BOARDS = 'neto/boards/GET'
 

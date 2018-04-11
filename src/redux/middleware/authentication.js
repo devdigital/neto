@@ -9,7 +9,7 @@ import {
   signIn,
   signedIn,
   onCallback,
-} from '../../services/trello-service'
+} from '~/services/trello-service'
 
 class SignedIn extends Component {
   componentDidMount() {

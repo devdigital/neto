@@ -7,7 +7,7 @@ import { Iterable, Map } from 'immutable'
 import reducer from './modules/reducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createAuthenticationMiddleware } from './middleware/authentication'
-import routes from '../routes'
+import routes from '~/routes'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const developmentMiddlewares = []
